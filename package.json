@@ -20,10 +20,16 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@better-auth/prisma-adapter": "^1.5.6",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/platform-fastify": "^11.1.17",
+    "@prisma/adapter-pg": "^7.6.0",
+    "@prisma/client": "7.6.0",
+    "@thallesp/nestjs-better-auth": "^2.5.3",
+    "better-auth": "^1.5.6",
+    "class-validator": "^0.15.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },
