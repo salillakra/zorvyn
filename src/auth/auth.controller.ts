@@ -11,6 +11,7 @@ export class AuthController {
 
   //Register user endpoint
   @Post('register')
+  @HttpCode(HttpStatus.CREATED)
   @nestjsBetterAuth.AllowAnonymous()
   registerUser(@Body() registerUserDto: RegisterUserDto) {
     return this.userService.registerUserService(registerUserDto);
