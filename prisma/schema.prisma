@@ -15,14 +15,16 @@ model User {
   emailVerified Boolean   @default(false)
   image         String?
   status        String    @default("active")
+  roleId        String    @default("viewer")
+  role          Role      @relation(fields: [roleId], references: [id])
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
-  roles         Role[]
 
   @@unique([email])
   @@index([email])
+  @@index([roleId])
   @@map("user")
 }
 
@@ -82,11 +84,40 @@ enum RoleType {
 
 model Role {
   id        String   @id
-  name      RoleType @default(Viewer)
+  name      RoleType @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  users     User[]
 
   @@map("role")
+}
+
+model Category {
+  id           Int                 @id @default(autoincrement())
+  name         String              @unique
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  transactions LedgerTransaction[]
+
+  @@map("category")
+}
+
+enum TransactionType {
+  Income
+  Expense
+}
+
+model LedgerTransaction {
+  id          Int             @id @default(autoincrement())
+  amount      Float
+  description String
+  categoryId  Int
+  type        TransactionType
+  category    Category        @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  is_deleted  Boolean         @default(false)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@index([categoryId])
+  @@map("transaction")
 }
