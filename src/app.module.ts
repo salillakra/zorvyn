@@ -17,7 +17,7 @@ import { CategoriesController } from './categories/categories.controller';
 import { CategoriesService } from './categories/categories.service';
 
 @Module({
-  imports: [AuthModule.forRoot({ auth })],
+  imports: [AuthModule.forRoot({ auth, throttle: { ttl: 60, limit: 100 } })],
   controllers: [
     UserController,
     AuthController,
