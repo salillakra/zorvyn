@@ -1,0 +1,25 @@
+name: Ping Render Service
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Ping render service
+        run: |
+          set -euo pipefail
+          URL="https://zorvyn-zbly.onrender.com/ping"
+          HTTP_CODE=$(curl -sS -o /tmp/ping-response.txt -w "%{http_code}" --max-time 20 "$URL")
+          echo "Response body:"
+          cat /tmp/ping-response.txt
+          echo
+          if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
+            echo "Ping failed with HTTP status $HTTP_CODE"
+            exit 1
+          fi
+          echo "Ping succeeded with HTTP status $HTTP_CODE"
