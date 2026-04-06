@@ -4,8 +4,8 @@ import { UserService } from './user/user.service';
 @Injectable()
 export class AppService {
   constructor(private readonly userService: UserService) {}
-  getHello(): string {
-    return 'Hello World!';
+  apiInfo(): string {
+    return 'Go to /api for API documentation';
   }
 
   getHealth(): {

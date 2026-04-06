@@ -15,6 +15,8 @@ import { PrismaClient } from '../generated/prisma/client';
 import { DashboardService } from './dashboard/dashboard.service';
 import { CategoriesController } from './categories/categories.controller';
 import { CategoriesService } from './categories/categories.service';
+import { AppService } from './app.service';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [AuthModule.forRoot({ auth, throttle: { ttl: 60, limit: 100 } })],
@@ -24,6 +26,7 @@ import { CategoriesService } from './categories/categories.service';
     TransactionsController,
     DashboardController,
     CategoriesController,
+    AppController,
   ],
   providers: [
     UserService,
@@ -40,6 +43,7 @@ import { CategoriesService } from './categories/categories.service';
     TransactionsService,
     DashboardService,
     CategoriesService,
+    AppService,
   ],
 })
 export class AppModule {}
